@@ -1,13 +1,22 @@
 exports = (typeof window === 'undefined') ? global : window;
 
 exports.numbersAnswers = {
+    /**
+     * find bit and return value
+     * @param num
+     * @param bit
+     * @returns {Number}
+     */
     valueAtBit: function (num, bit) {
-        if (num < 0 || num > 255 || num % 1 !== 0) {
-            throw new Error(num + " does not fit in a byte");
+        function byteString(n) {
+            if (n < 0 || n > 255 || n % 1 !== 0) {
+                throw new Error(n + " does not fit in a byte");
+            }
+            return ("000000000" + n.toString(2)).substr(-8)
         }
-        console.log(num);
-        return ("000000000" + num.toString(2)).substr(-8);
-
+        var binaryValue = byteString(num);
+        var result_bit = binaryValue[(binaryValue.length-bit)];
+        return parseInt(result_bit);
     },
     /**
      *

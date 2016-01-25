@@ -31,12 +31,21 @@ exports.bestPracticesAnswers = {
 
         return getValue();
     },
-
+    /**
+     *
+     * @param num
+     * @returns {Number}
+     */
     parseInt: function (num) {
 
         return parseInt(num,10);
     },
-
+    /**
+     *
+     * @param val1
+     * @param val2
+     * @returns {boolean}
+     */
     identity: function (val1, val2) {
         return val1 === val2 ? true : false;
     }
