@@ -51,15 +51,15 @@ exports.arraysAnswers = {
     },
 
     removeWithoutCopy: function (arr, item) {
-        var arr2 = [];
-        arr.forEach(function (i) {
-            if (i != item) {
-                arr2.push(i);
+
+        arr.forEach(function (j) {
+            if(j==item) {
+                var i = arr.indexOf(j);
+                arr.splice(i, 1);
             }
         });
 
-        return  arr2;
-
+    return arr;
     },
     /**
      *
@@ -145,13 +145,7 @@ exports.arraysAnswers = {
     },
 
     duplicates: function (arr) {
-        var result = [];
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i] == arr[i + 1]) {
-                result.push(arr[i]);
-            }
-        }
-        return result;
+        console.log();
     },
     /**
      *
