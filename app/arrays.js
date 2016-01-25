@@ -1,5 +1,5 @@
 exports = (typeof window === 'undefined') ? global : window;
-
+https://github.com/artyomkagramanov/js_tests/blob/master/app/modules.js
 exports.arraysAnswers = {
     /**
      *
