@@ -7,31 +7,18 @@ exports.countAnswers = {
      * @param end
      * @returns {{cancel: cancel}}
      */
-    count: function (start, end) {
-        var timer;
+    count : function (start, end) {
+        var timeout;
+        function counter () {
+            if (start <= end) {
+                console.log(start++);
+                timeout = setTimeout(counter, 100);
+            }
+        }
+        counter();
         return {
-            counter: function () {
-                if (start <= end) {
-                    timer = setTimeout(this.counter, 100);
-                }
-            },
-            cancel: function () {
-                return timer && clearTimeout(timer);
-            },
-
-            countdown: function () {
-                var count = 10;
-                var timerId = setInterval(function () {
-                    count--;
-                    console.log(count);
-
-                    if (count == 0) {
-                        count = 10;
-                    }
-                }, 1000);
-
-                this.countdown();
-                console.log(this.countdown);
+            cancel : function(){
+                timeout && clearTimeout(timeout);
             }
         }
     }
