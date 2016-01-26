@@ -84,12 +84,16 @@ exports.functionsAnswers = {
         return fn.apply({}, args);
 
     },
-
+    /**
+     * partial arguments
+     * @param fn
+     * @returns {Function}
+     */
     partialUsingArguments: function (fn) {
-        var args = Array.prototype.slice.call(arguments);
+        var args = Array.prototype.slice.call(arguments, 1);
         return function () {
-            args = Array.prototype.slice.call(arguments, 1);
-            return fn.apply({}, args);
+            var tempArgs = Array.prototype.slice.call(arguments);
+            return fn.apply({}, args.concat(tempArgs));
         }
     },
     /**

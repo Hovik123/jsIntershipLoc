@@ -1,17 +1,38 @@
 exports = (typeof window === 'undefined') ? global : window;
 
 exports.countAnswers = {
+    /**
+     *
+     * @param start
+     * @param end
+     * @returns {{cancel: cancel}}
+     */
     count: function (start, end) {
-        var count = 10;
-        var timerId = setInterval(function() {
+        var timer;
+        return {
+            counter: function () {
+                if (start <= end) {
+                    timer = setTimeout(this.counter, 100);
+                }
+            },
+            cancel: function () {
+                return timer && clearTimeout(timer);
+            },
 
-            count--;
+            countdown: function () {
+                var count = 10;
+                var timerId = setInterval(function () {
+                    count--;
+                    console.log(count);
 
-            if(count == 0) {
-                clearInterval(timerId);
+                    if (count == 0) {
+                        count = 10;
+                    }
+                }, 1000);
 
+                this.countdown();
+                console.log(this.countdown);
             }
-        }, 1000);
+        }
     }
-
 };

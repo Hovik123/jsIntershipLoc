@@ -2,25 +2,35 @@ exports = (typeof window === 'undefined') ? global : window;
 
 exports.recursionAnswers = {
     listFiles: function (data, dirName) {
-        var arr = [];
-        return function (){
+        var files = [];
 
-            data.files.forEach(function (i) {
-                //console.log(i);
-                if (typeof  i === "object") {
-                    this.listFiles(file,'js');
-
-                    console.log(i.files,'object');
-                    this.listFiles(i.files, i.dir);
+        function listFiles(data) {
+            data.forEach(function (i) {
+                if (typeof i == 'string') {
+                    files.push(i);
                 } else {
-                    console.log(i,'files');
-                    arr.push(i);
-                    console.log(arr,'arr');
+                    listFiles(i.files);
                 }
             });
-            return arr;
+        }
+        function listDirFiles(obj) {
+            if (obj.dir == dirName) {
+                listFiles(obj.files);
+            } else {
+                for (var i = 0; i < obj.files.length; i++) {
+                    if (typeof obj.files[i] == 'object')
+                        listDirFiles(obj.files[i]);
+                }
+            }
         }
 
+        if (arguments.length === 1) {
+            listFiles(data.files);
+            return files;
+        } else {
+            listDirFiles(data);
+            return files;
+        }
     },
     /**
      *
@@ -34,12 +44,12 @@ exports.recursionAnswers = {
          * @param el
          * @returns {Array}
          */
-        var make=function (arr, el) {
+        var make = function (arr, el) {
             var i, i_m, item;
             var len = arr.length;
             var res = [];
 
-            for(i = len; i >= 0; i--) {
+            for (i = len; i >= 0; i--) {
                 res.push(
                     ([]).concat(
                         arr.slice(0, i),
@@ -56,12 +66,12 @@ exports.recursionAnswers = {
 
         curr = [[arr[0]]];
 
-        for(i = 1; i < len; i++) {
+        for (i = 1; i < len; i++) {
             el = arr[i];
             prev = curr;
             curr = [];
 
-            prev.forEach(function(item) {
+            prev.forEach(function (item) {
                 curr = curr.concat(
                     make(item, el)
                 );
